@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Limite_Departamental_Cantidad_Poligo_Arroz_2.js"></script>
+        <script src="data/Limite_Munic_Cantidad_Poligo_Arroz_3.js"></script>
+        <script src="data/censodeArrozdeRiego232upm110222_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[11.051704697991855,-87.37169974736277],[12.856312470213346,-84.88475737737079]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        map.createPane('pane_OpenTopoMap_1');
+        map.getPane('pane_OpenTopoMap_1').style.zIndex = 401;
+        var layer_OpenTopoMap_1 = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenTopoMap_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_OpenTopoMap_1;
+        map.addLayer(layer_OpenTopoMap_1);
+        function pop_Limite_Departamental_Cantidad_Poligo_Arroz_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NOM_DPTO</strong><br />' + (feature.properties['NOM_DPTO'] !== null ? autolinker.link(feature.properties['NOM_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COD_DPTO</th>\
+                        <td>' + (feature.properties['COD_DPTO'] !== null ? autolinker.link(feature.properties['COD_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cant_UPM</th>\
+                        <td>' + (feature.properties['Cant_UPM'] !== null ? autolinker.link(feature.properties['Cant_UPM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Limite_Departamental_Cantidad_Poligo_Arroz_2_0() {
+            return {
+                pane: 'pane_Limite_Departamental_Cantidad_Poligo_Arroz_2',
+                opacity: 1,
+                color: 'rgba(118,88,17,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Limite_Departamental_Cantidad_Poligo_Arroz_2');
+        map.getPane('pane_Limite_Departamental_Cantidad_Poligo_Arroz_2').style.zIndex = 402;
+        map.getPane('pane_Limite_Departamental_Cantidad_Poligo_Arroz_2').style['mix-blend-mode'] = 'normal';
+        var layer_Limite_Departamental_Cantidad_Poligo_Arroz_2 = new L.geoJson(json_Limite_Departamental_Cantidad_Poligo_Arroz_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Limite_Departamental_Cantidad_Poligo_Arroz_2',
+            layerName: 'layer_Limite_Departamental_Cantidad_Poligo_Arroz_2',
+            pane: 'pane_Limite_Departamental_Cantidad_Poligo_Arroz_2',
+            onEachFeature: pop_Limite_Departamental_Cantidad_Poligo_Arroz_2,
+            style: style_Limite_Departamental_Cantidad_Poligo_Arroz_2_0,
+        });
+        bounds_group.addLayer(layer_Limite_Departamental_Cantidad_Poligo_Arroz_2);
+        map.addLayer(layer_Limite_Departamental_Cantidad_Poligo_Arroz_2);
+        function pop_Limite_Munic_Cantidad_Poligo_Arroz_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NOM_DPTO</strong><br />' + (feature.properties['NOM_DPTO'] !== null ? autolinker.link(feature.properties['NOM_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COD_DPTO</th>\
+                        <td>' + (feature.properties['COD_DPTO'] !== null ? autolinker.link(feature.properties['COD_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">N_MUNICIPI</th>\
+                        <td>' + (feature.properties['N_MUNICIPI'] !== null ? autolinker.link(feature.properties['N_MUNICIPI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COD_MUNIC</th>\
+                        <td>' + (feature.properties['COD_MUNIC'] !== null ? autolinker.link(feature.properties['COD_MUNIC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cant_UPM'] !== null ? autolinker.link(feature.properties['Cant_UPM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Limite_Munic_Cantidad_Poligo_Arroz_3_0() {
+            return {
+                pane: 'pane_Limite_Munic_Cantidad_Poligo_Arroz_3',
+                opacity: 1,
+                color: 'rgba(255,23,23,1.0)',
+                dashArray: '10,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Limite_Munic_Cantidad_Poligo_Arroz_3');
+        map.getPane('pane_Limite_Munic_Cantidad_Poligo_Arroz_3').style.zIndex = 403;
+        map.getPane('pane_Limite_Munic_Cantidad_Poligo_Arroz_3').style['mix-blend-mode'] = 'normal';
+        var layer_Limite_Munic_Cantidad_Poligo_Arroz_3 = new L.geoJson(json_Limite_Munic_Cantidad_Poligo_Arroz_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Limite_Munic_Cantidad_Poligo_Arroz_3',
+            layerName: 'layer_Limite_Munic_Cantidad_Poligo_Arroz_3',
+            pane: 'pane_Limite_Munic_Cantidad_Poligo_Arroz_3',
+            onEachFeature: pop_Limite_Munic_Cantidad_Poligo_Arroz_3,
+            style: style_Limite_Munic_Cantidad_Poligo_Arroz_3_0,
+        });
+        bounds_group.addLayer(layer_Limite_Munic_Cantidad_Poligo_Arroz_3);
+        map.addLayer(layer_Limite_Munic_Cantidad_Poligo_Arroz_3);
+        function pop_censodeArrozdeRiego232upm110222_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">OBJECTID_1</th>\
+                        <td>' + (feature.properties['OBJECTID_1'] !== null ? autolinker.link(feature.properties['OBJECTID_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Dpto_mun_u</strong><br />' + (feature.properties['Dpto_mun_u'] !== null ? autolinker.link(feature.properties['Dpto_mun_u'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOM_DPTO</th>\
+                        <td>' + (feature.properties['NOM_DPTO'] !== null ? autolinker.link(feature.properties['NOM_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COD_DPTO</th>\
+                        <td>' + (feature.properties['COD_DPTO'] !== null ? autolinker.link(feature.properties['COD_DPTO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">N_MUNICIPI</th>\
+                        <td>' + (feature.properties['N_MUNICIPI'] !== null ? autolinker.link(feature.properties['N_MUNICIPI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COD_MUNIC</th>\
+                        <td>' + (feature.properties['COD_MUNIC'] !== null ? autolinker.link(feature.properties['COD_MUNIC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OBSERVACIO</th>\
+                        <td>' + (feature.properties['OBSERVACIO'] !== null ? autolinker.link(feature.properties['OBSERVACIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Total/UPM'] !== null ? autolinker.link(feature.properties['Total/UPM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AVANCE</th>\
+                        <td>' + (feature.properties['AVANCE'] !== null ? autolinker.link(feature.properties['AVANCE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#d5634f',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#6652ca',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#7dee90',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#ffff17',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#6652ca',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#7dee90',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#d5634f',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#6652ca',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#7dee90',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#ffff17',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#6652ca',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#7dee90',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_1.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#d5634f',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#6652ca',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        var pattern_censodeArrozdeRiego232upm110222_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#7dee90',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_censodeArrozdeRiego232upm110222_4_0.addTo(map);
+        function style_censodeArrozdeRiego232upm110222_4_0(feature) {
+            switch(String(feature.properties['AVANCE'])) {
+                case 'EJECUTADO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_0,
+                interactive: true,
+            }
+                    break;
+                case 'EN PROCESO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        function style_censodeArrozdeRiego232upm110222_4_1(feature) {
+            switch(String(feature.properties['AVANCE'])) {
+                case 'EJECUTADO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_1,
+                interactive: true,
+            }
+                    break;
+                case 'EN PROCESO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_1,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_censodeArrozdeRiego232upm110222_4_1,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        function style_censodeArrozdeRiego232upm110222_4_2(feature) {
+            switch(String(feature.properties['AVANCE'])) {
+                case 'EJECUTADO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                opacity: 1,
+                color: 'rgba(0,0,229,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'EN PROCESO':
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                opacity: 1,
+                color: 'rgba(102,82,202,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_censodeArrozdeRiego232upm110222_4',
+                opacity: 1,
+                color: 'rgba(125,238,144,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_censodeArrozdeRiego232upm110222_4');
+        map.getPane('pane_censodeArrozdeRiego232upm110222_4').style.zIndex = 404;
+        map.getPane('pane_censodeArrozdeRiego232upm110222_4').style['mix-blend-mode'] = 'normal';
+        var layer_censodeArrozdeRiego232upm110222_4 = new L.geoJson.multiStyle(json_censodeArrozdeRiego232upm110222_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_censodeArrozdeRiego232upm110222_4',
+            layerName: 'layer_censodeArrozdeRiego232upm110222_4',
+            pane: 'pane_censodeArrozdeRiego232upm110222_4',
+            onEachFeature: pop_censodeArrozdeRiego232upm110222_4,
+            styles: [style_censodeArrozdeRiego232upm110222_4_0,style_censodeArrozdeRiego232upm110222_4_1,style_censodeArrozdeRiego232upm110222_4_2,]
+        });
+        bounds_group.addLayer(layer_censodeArrozdeRiego232upm110222_4);
+        map.addLayer(layer_censodeArrozdeRiego232upm110222_4);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'censo de Arroz de Riego 232 upm 110222<br /><table><tr><td style="text-align: center;"><img src="legend/censodeArrozdeRiego232upm110222_4_EJECUTADO0.png" /></td><td>EJECUTADO</td></tr><tr><td style="text-align: center;"><img src="legend/censodeArrozdeRiego232upm110222_4_ENPROCESO1.png" /></td><td>EN PROCESO</td></tr><tr><td style="text-align: center;"><img src="legend/censodeArrozdeRiego232upm110222_4_2.png" /></td><td></td></tr></table>': layer_censodeArrozdeRiego232upm110222_4,'<img src="legend/Limite_Munic_Cantidad_Poligo_Arroz_3.png" /> Limite_Munic_Cantidad_Poligo_Arroz': layer_Limite_Munic_Cantidad_Poligo_Arroz_3,'<img src="legend/Limite_Departamental_Cantidad_Poligo_Arroz_2.png" /> Limite_Departamental_Cantidad_Poligo_Arroz': layer_Limite_Departamental_Cantidad_Poligo_Arroz_2,"OpenTopoMap": layer_OpenTopoMap_1,"Google Satellite": layer_GoogleSatellite_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_censodeArrozdeRiego232upm110222_4,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Dpto_mun_u'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"NOM_DPTO": "str","AVANCE": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_NOM_DPTO = document.createElement('div');
+            div_NOM_DPTO.id = "div_NOM_DPTO";
+            div_NOM_DPTO.className= "filterselect";
+            document.getElementById("menu").appendChild(div_NOM_DPTO);
+            sel_NOM_DPTO = document.createElement('select');
+            sel_NOM_DPTO.multiple = true;
+            sel_NOM_DPTO.size = 10;
+            sel_NOM_DPTO.id = "sel_NOM_DPTO";
+            var NOM_DPTO_options_str = "<option value='' unselected></option>";
+            sel_NOM_DPTO.onchange = function(){filterFunc()};
+            NOM_DPTO_options_str  += '<option value="Boaco">Boaco</option>';
+            NOM_DPTO_options_str  += '<option value="Carazo">Carazo</option>';
+            NOM_DPTO_options_str  += '<option value="Chinandega">Chinandega</option>';
+            NOM_DPTO_options_str  += '<option value="Chontales">Chontales</option>';
+            NOM_DPTO_options_str  += '<option value="Estelí">Estelí</option>';
+            NOM_DPTO_options_str  += '<option value="Granada">Granada</option>';
+            NOM_DPTO_options_str  += '<option value="Jinotega">Jinotega</option>';
+            NOM_DPTO_options_str  += '<option value="León">León</option>';
+            NOM_DPTO_options_str  += '<option value="Madriz">Madriz</option>';
+            NOM_DPTO_options_str  += '<option value="Managua">Managua</option>';
+            NOM_DPTO_options_str  += '<option value="Masaya">Masaya</option>';
+            NOM_DPTO_options_str  += '<option value="Matagalpa">Matagalpa</option>';
+            NOM_DPTO_options_str  += '<option value="Nueva Segovia">Nueva Segovia</option>';
+            NOM_DPTO_options_str  += '<option value="RACCN">RACCN</option>';
+            NOM_DPTO_options_str  += '<option value="RACCS">RACCS</option>';
+            NOM_DPTO_options_str  += '<option value="Rivas">Rivas</option>';
+            NOM_DPTO_options_str  += '<option value="Río San Juan">Río San Juan</option>';
+            sel_NOM_DPTO.innerHTML = NOM_DPTO_options_str;
+            div_NOM_DPTO.appendChild(sel_NOM_DPTO);
+            var lab_NOM_DPTO = document.createElement('div');
+            lab_NOM_DPTO.innerHTML = 'NOM_DPTO';
+            lab_NOM_DPTO.className = 'filterlabel';
+            div_NOM_DPTO.appendChild(lab_NOM_DPTO);
+            var reset_NOM_DPTO = document.createElement('div');
+            reset_NOM_DPTO.innerHTML = 'clear filter';
+            reset_NOM_DPTO.className = 'filterlabel';
+            reset_NOM_DPTO.onclick = function() {
+                var options = document.getElementById("sel_NOM_DPTO").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_NOM_DPTO.appendChild(reset_NOM_DPTO);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_AVANCE = document.createElement('div');
+            div_AVANCE.id = "div_AVANCE";
+            div_AVANCE.className= "filterselect";
+            document.getElementById("menu").appendChild(div_AVANCE);
+            sel_AVANCE = document.createElement('select');
+            sel_AVANCE.multiple = true;
+            sel_AVANCE.size = 2;
+            sel_AVANCE.id = "sel_AVANCE";
+            var AVANCE_options_str = "<option value='' unselected></option>";
+            sel_AVANCE.onchange = function(){filterFunc()};
+            AVANCE_options_str  += '<option value="EJECUTADO">EJECUTADO</option>';
+            AVANCE_options_str  += '<option value="EN PROCESO">EN PROCESO</option>';
+            sel_AVANCE.innerHTML = AVANCE_options_str;
+            div_AVANCE.appendChild(sel_AVANCE);
+            var lab_AVANCE = document.createElement('div');
+            lab_AVANCE.innerHTML = 'AVANCE';
+            lab_AVANCE.className = 'filterlabel';
+            div_AVANCE.appendChild(lab_AVANCE);
+            var reset_AVANCE = document.createElement('div');
+            reset_AVANCE.innerHTML = 'clear filter';
+            reset_AVANCE.className = 'filterlabel';
+            reset_AVANCE.onclick = function() {
+                var options = document.getElementById("sel_AVANCE").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_AVANCE.appendChild(reset_AVANCE);
+        </script>
+    </body>
+</html>
